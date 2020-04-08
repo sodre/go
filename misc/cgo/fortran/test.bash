@@ -18,8 +18,7 @@ fi
 
 case "$FC" in
 *gfortran*)
-  libpath=$(dirname $($FC -print-file-name=libgfortran.$libext))
-  export CGO_LDFLAGS="$CGO_LDFLAGS -Wl,-rpath,$libpath -L $libpath"
+  # CONDA's gfortran + go does not need changes to CGO_LDFLAGS
   ;;
 esac
 

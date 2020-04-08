@@ -89,9 +89,14 @@ var extraEnvKeys = []string{
 	"WINDIR",             // must be preserved on Windows to be able to run PowerShell command; golang.org/issue/30711
 	"LD_LIBRARY_PATH",    // must be preserved on Unix systems to find shared libraries
 	"CC",                 // don't lose user settings when invoking cgo
+	"CFLAGS",             // conda: don't lose compiler settings when invoking cgo
+	"CONDA_BUILD_SYSROOT",// conda: don't lose CONDA_BUILD_SYSROOT when invoking cgo
+	"CPPFLAGS",           // conda: don't lose compiler settings when invoking cgo
 	"GO_TESTING_GOTOOLS", // for gccgo testing
 	"GCCGO",              // for gccgo testing
 	"GCCGOTOOLDIR",       // for gccgo testing
+	"LDFLAGS",            // conda: don't lose compiler settings when invoking cgo
+	"MACOSX_DEPLOYMENT_TARGET",  // conda: don't lose the deployment target when invoking cgo
 }
 
 // setup sets up the test execution temporary directory and environment.

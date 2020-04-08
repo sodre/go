@@ -20,11 +20,7 @@ fi
 
 case "$FC" in
 *gfortran*)
-  libpath=$(dirname $($FC -print-file-name=libgfortran.$libext))
-  if [ "$goos" != "aix" ]; then
-	  RPATH_FLAG="-Wl,-rpath,$libpath"
-  fi
-  export CGO_LDFLAGS="$CGO_LDFLAGS $RPATH_FLAG -L $libpath"
+  # CONDA's gfortran + go does not need changes to CGO_LDFLAGS
   ;;
 esac
 

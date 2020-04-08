@@ -88,6 +88,8 @@ var extraEnvKeys = []string{
 	"CFLAGS",
 	"CPPFLAGS",
 	"LDFLAGS",
+	"CONDA_BUILD_SYSROOT",
+	"MACOSX_DEPLOYMENT_TARGET",
 }
 
 // setup sets up the test execution temporary directory and environment.

@@ -95,6 +95,8 @@ var extraEnvKeys = []string{
 	"GO_TESTING_GOTOOLS", // for gccgo testing
 	"GCCGO",              // for gccgo testing
 	"GCCGOTOOLDIR",       // for gccgo testing
+	"CONDA_BUILD_SYSROOT", // conda-forge: don't lose conda-build settings
+	"MACOSX_DEPLOYMENT_TARGET",  // conda-forge: don't lose conda-build settings
 }
 
 // setup sets up the test execution temporary directory and environment.

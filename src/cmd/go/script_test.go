@@ -89,6 +89,9 @@ var extraEnvKeys = []string{
 	"WINDIR",             // must be preserved on Windows to be able to run PowerShell command; golang.org/issue/30711
 	"LD_LIBRARY_PATH",    // must be preserved on Unix systems to find shared libraries
 	"CC",                 // don't lose user settings when invoking cgo
+	"CFLAGS",             // conda-forge: don't lose user settings
+	"CPPFLAGS",           // conda-forge: don't lose user settings
+	"LDFLAGS",            // conda-forge: don't lose user settings
 	"GO_TESTING_GOTOOLS", // for gccgo testing
 	"GCCGO",              // for gccgo testing
 	"GCCGOTOOLDIR",       // for gccgo testing

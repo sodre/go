@@ -1580,6 +1580,19 @@ func TestInstallIntoGOBIN(t *testing.T) {
 	tg.wantExecutable("testdata/bin1/go-cmd-test"+exeSuffix, "go install go-cmd-test did not write to testdata/bin1/go-cmd-test")
 }
 
+// Test that without $GOBIN set, binaries get installed
+// into the PREFIX/bin directory when CONDA_BUILD is 1.
+func TestInstallIntoGOBINWithCondaBuild(t *testing.T) {
+	tg := testgo(t)
+	defer tg.cleanup()
+	tg.setenv("CONDA_BUILD", "1")
+	prefix := filepath.Join(tg.pwd(), "testdata", "conda_build_prefix")
+	tg.creatingTemp(prefix)
+	tg.setenv("PREFIX", prefix)
+	tg.setenv("GOPATH", filepath.Join(tg.pwd(), "testdata"))
+	tg.run("install", "go-cmd-test")
+	tg.wantExecutable("testdata/conda_build_prefix/bin/go-cmd-test"+exeSuffix, "go install go-cmd-test did not write to testdata/conda_build_prefix/bin/go-cmd-test")
+}
 // Issue 11065
 func TestInstallToCurrentDirectoryCreatesExecutable(t *testing.T) {
 	tg := testgo(t)

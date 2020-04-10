@@ -94,7 +94,7 @@ func init() {
 
 var (
 	GOROOT       = findGOROOT()
-	GOBIN        = os.Getenv("GOBIN")
+	GOBIN        = findGOBIN()
 	GOROOTbin    = filepath.Join(GOROOT, "bin")
 	GOROOTpkg    = filepath.Join(GOROOT, "pkg")
 	GOROOTsrc    = filepath.Join(GOROOT, "src")
@@ -197,4 +197,19 @@ func isGOROOT(path string) bool {
 		return false
 	}
 	return stat.IsDir()
+}
+
+// findGOBIN returns the GOBIN value, using either an explicitly
+// provided environment variable, or $PREFIX$/bin if the CONDA_BUILD
+// environment variable is set to 1.
+func findGOBIN() string {
+	if env, ok := os.LookupEnv("GOBIN"); ok {
+		return env
+	}
+	if condaBuild := os.Getenv("CONDA_BUILD"); condaBuild == "1" {
+		if prefix, ok := os.LookupEnv("PREFIX"); ok {
+			return filepath.Join(prefix, "bin")
+		}
+	}
+	return ""
 }

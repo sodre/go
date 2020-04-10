@@ -379,14 +379,6 @@ func defaultCondaGOBIN() string {
 	return ""
 }
 
-func envOr(name, def string) string {
-	s := os.Getenv(name)
-	if s == "" {
-		return def
-	}
-	return s
-}
-
 // envIsOne returns true if environment variable is set to 1, it
 // it returns false otherwise
 func envIsOne(name string) bool {

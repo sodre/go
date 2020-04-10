@@ -231,7 +231,7 @@ func CanGetenv(key string) bool {
 
 var (
 	GOROOT       = BuildContext.GOROOT
-	GOBIN        = Getenv("GOBIN")
+	GOBIN        = envOr("GOBIN", defaultCondaGOBIN())
 	GOROOTbin    = filepath.Join(GOROOT, "bin")
 	GOROOTpkg    = filepath.Join(GOROOT, "pkg")
 	GOROOTsrc    = filepath.Join(GOROOT, "src")
@@ -364,3 +364,30 @@ func isGOROOT(path string) bool {
 	}
 	return stat.IsDir()
 }
+
+// defaultCondaGOBIN returns a conda-aware GOBIN path if CONDA_GO_COMPILER
+// is set to 1, otherwise it returns the default empty-string.
+// When CONDA_GO_COMPILER is set to 1, GOBIN's default value is set to:
+//    - $PREFIX/bin if CONDA_BUILD is set to 1 and the PREFIX is set
+//    - $CONDA_PREFIX/bin if CONDA_BUILD is not set to 1 and CONDA_PREFIX is set
+//    - ""  the default value
+func defaultCondaGOBIN() string {
+	if envIsOne("CONDA_GO_COMPILER") {
+		prefixEnv := "CONDA_PREFIX"
+		if envIsOne("CONDA_BUILD") {
+			prefixEnv = "PREFIX"
+		}
+		if prefix, ok := os.LookupEnv(prefixEnv); ok {
+			return filepath.Join(prefix, "bin")
+		}
+	}
+	return ""
+}
+
+// envIsOne returns true if environment variable is set to 1, it
+// it returns false otherwise
+func envIsOne(name string) bool {
+	s := os.Getenv(name)
+	return s == "1"
+}
+

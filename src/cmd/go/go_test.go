@@ -1617,6 +1617,7 @@ func TestInstallIntoGOBINWithCondaCompiler(t *testing.T) {
 	tg := testgo(t)
 	defer tg.cleanup()
 	tg.setenv("CONDA_GO_COMPILER", "1")
+	tg.setenv("CONDA_BUILD", "")
 	prefix := filepath.Join(tg.pwd(), "testdata", "conda_prefix")
 	tg.creatingTemp(prefix)
 	tg.setenv("CONDA_PREFIX", prefix)
@@ -1635,7 +1636,7 @@ func TestInstallIntoGOBINWithCondaBuild(t *testing.T) {
 	prefix := filepath.Join(tg.pwd(), "testdata", "conda_build_prefix")
 	tg.creatingTemp(prefix)
 	tg.setenv("PREFIX", prefix)
-	tg.setenv("SRCDIR", filepath.Join(tg.pwd(), "testdata"))
+	tg.setenv("SRC_DIR", filepath.Join(tg.pwd(), "testdata"))
 	tg.run("install", "go-cmd-test")
 	tg.wantExecutable("testdata/conda_build_prefix/bin/go-cmd-test"+exeSuffix, "go install go-cmd-test did not write to testdata/conda_build_prefix/bin/go-cmd-test")
 }

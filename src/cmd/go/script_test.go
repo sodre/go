@@ -84,6 +84,12 @@ type backgroundCmd struct {
 
 var extraEnvKeys = []string{
 	"SYSTEMROOT", // must be preserved on Windows to find DLLs; golang.org/issue/25210
+	"CC",
+	"CFLAGS",
+	"CPPFLAGS",
+	"LDFLAGS",
+	"CONDA_BUILD_SYSROOT",
+	"MACOSX_DEPLOYMENT_TARGET",
 }
 
 // setup sets up the test execution temporary directory and environment.
